@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">Поднос с обедом</string>
+    <string name="start_order">Начать заказ</string>
+    <string name="choose_entree">Выберите основное блюдо</string>
+    <string name="choose_side_dish">Выберите гарнир</string>
+    <string name="choose_accompaniment">Выберите дополнение</string>
+    <string name="order_checkout">Оформление заказа</string>
+    <string name="cancel">Отмена</string>
+    <string name="next">Далее</string>
+    <string name="submit">Отправить</string>
+    <string name="order_summary">Сводка заказа</string>
+    <string name="subtotal">Промежуточный итог: %s</string>
+    <string name="tax">Налог: %s</string>
+    <string name="total">Итого: %s</string>
+    <string name="back">Назад</string>
+</resources>
