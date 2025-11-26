@@ -1,54 +1,41 @@
 package com.example.lunchtray
 
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
-import java.text.NumberFormat
-import kotlin.math.round
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 
 class DepositViewModel : ViewModel() {
+    private val _uiState = MutableStateFlow(DepositUiState())
+    val uiState: StateFlow<DepositUiState> = _uiState
 
-    // вводимые поля (строки, чтобы TextField работал удобно)
-    var initialAmount by mutableStateOf("")
-    var interestRate by mutableStateOf("")  // годовой процент в %
-    var monthlyAdd by mutableStateOf("")
-    var months by mutableStateOf("")
+    fun updateInitial(value: Double) {
+        _uiState.value = _uiState.value.copy(initial = value)
+    }
 
-    // результаты
-    var finalAmount by mutableStateOf(0.0)
-    var incomeAmount by mutableStateOf(0.0)
+    fun updateRate(value: Double) {
+        _uiState.value = _uiState.value.copy(rate = value)
+    }
 
-    // расчет — вызываем после ввода всех полей
+    fun updateMonthly(value: Double) {
+        _uiState.value = _uiState.value.copy(monthly = value)
+    }
+
+    fun updateMonths(value: Int) {
+        _uiState.value = _uiState.value.copy(months = value)
+    }
+
     fun calculate() {
-        val P = initialAmount.toDoubleOrNull() ?: 0.0
-        val annualPercent = interestRate.toDoubleOrNull() ?: 0.0
-        val monthlyPercent = annualPercent / 100.0 / 12.0
-        val A = monthlyAdd.toDoubleOrNull() ?: 0.0
-        val n = months.toIntOrNull() ?: 0
-
-        var sum = P
-        // простой подход: на каждую итерацию добавляем A, затем начисляем процент
-        repeat(n) {
-            sum += A
-            sum *= (1 + monthlyPercent)
+        val state = _uiState.value
+        var total = state.initial
+        for (i in 1..state.months) {
+            total += state.monthly
+            total += total * (state.rate / 100.0 / 12.0)
         }
-
-        // Если n == 0, просто начисляем 0, final = P
-        finalAmount = round(sum * 100) / 100.0  // округлим до 2 знаков
-        incomeAmount = round((finalAmount - P - A * n) * 100) / 100.0
+        val interestEarned = total - (state.initial + state.monthly * state.months)
+        _uiState.value = state.copy(total = total, interestEarned = interestEarned)
     }
 
     fun reset() {
-        initialAmount = ""
-        interestRate = ""
-        monthlyAdd = ""
-        months = ""
-        finalAmount = 0.0
-        incomeAmount = 0.0
+        _uiState.value = DepositUiState()
     }
-
-    // Удобная строка в валютном формате
-    fun formatCurrency(value: Double): String =
-        NumberFormat.getCurrencyInstance().format(value)
 }
