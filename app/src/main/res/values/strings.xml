@@ -19,7 +19,6 @@
     <string name="choose_accompaniment">Choose Accompaniment</string>
     <string name="choose_entree">Choose Entree</string>
     <string name="choose_side_dish">Choose Side Dish</string>
-    <string name="next">Next</string>
     <string name="order_checkout">Order Checkout</string>
     <string name="start_order">Start Order</string>
     <string name="order_summary">Order Summary</string>
@@ -28,4 +27,13 @@
     <string name="total">Total: %s</string>
     <string name="submit">Submit</string>
     <string name="back">Back</string>
+    <string name="start_title">Калькулятор вклада</string>
+    <string name="step1_title">Ввод: вклад и ставка</string>
+    <string name="step2_title">Ввод: пополнение и срок</string>
+    <string name="result_title">Результат</string>
+    <string name="start_button">Рассчитать вклад</string>
+    <string name="next">Далее</string>
+    <string name="calculate">Рассчитать</string>
+    <string name="to_start">На начало</string>
+
 </resources>
