@@ -18,8 +18,8 @@ fun Step1Screen(
     onRateChange: (Double) -> Unit,
     onNext: () -> Unit
 ) {
-    var initialText by remember { mutableStateOf(uiState.initial.toString()) }
-    var rateText by remember { mutableStateOf(uiState.rate.toString()) }
+    var initialText by remember { mutableStateOf(if (uiState.initial == 0.0) "" else uiState.initial.toString()) }
+    var rateText by remember { mutableStateOf(if (uiState.rate == 0.0) "" else uiState.rate.toString()) }
 
     Column(
         modifier = Modifier
