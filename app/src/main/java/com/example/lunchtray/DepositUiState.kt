@@ -8,3 +8,4 @@ data class DepositUiState(
     val total: Double = 0.0,
     val interestEarned: Double = 0.0
 )
+//data class
